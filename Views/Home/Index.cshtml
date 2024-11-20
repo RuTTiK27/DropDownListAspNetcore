@@ -1,0 +1,49 @@
+﻿@using DropDownListAspNetcore.Controllers;
+@model DropDownListAspNetcore.Models.UserModel
+@* @{
+    ViewData["Title"] = "Home Page";
+} *@
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<label class="form-label">Select Gender:</label>
+
+@* @Html.DropDownList("Gender",Html.GetEnumSelectList<Gender>(),"Select Gender",new {@class="form-control"}) *@
+@* @Html.DropDownList("Gender", ViewBag.Gender, "Select Gender", new { @class = "form-control" }) *@
+
+<select name="Gender" asp-items="@ViewBag.Gender" class="form-control">
+    <option value="">Select Gender</option>
+</select>
+
+<form asp-action="Index" asp-controller="Home" method="post">
+    <label class="form-label">Select Student Name</label>
+@* <select asp-for="Id" asp-items="@(new SelectList(Model.UsersList,"Value","Text"))" class="form-control">
+    
+</select> *@
+    @Html.DropDownListFor(u => u.Id, 
+        new SelectList(Model.UsersList, "Value", "Text"),
+        new {@class="form-control"})
+
+<input type="submit" value="submit" class="btn btn-success" />
+</form>
+
+<hr />
+
+@{
+    if (ViewBag.selectedValue != null)
+    {
+        <h2>Selected Student Name: @ViewBag.selectedValue</h2>
+    }
+}
+
+
+@* @{
+    foreach (var item in Model)
+    {
+        <p>
+        @item.Name
+        </p>
+    }
+} *@
